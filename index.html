@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Asche meines Dorfes — Start</title>
+  <style>
+    :root{--bg:#0b0b0b;--accent:#c84b31;--muted:#d7cec7}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,#060606 0%, #0f0f0f 60%);}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:32px}
+    .card{width:980px;max-width:98vw;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(4,4,4,0.7);background:linear-gradient(180deg,rgba(10,10,10,0.6),rgba(0,0,0,0.75));border:1px solid rgba(255,255,255,0.03)}
+    header{display:flex;gap:20px;align-items:center;padding:28px}
+    .logo{width:84px;height:84px;background:repeating-linear-gradient(45deg, rgba(200,75,49,0.12) 0 6px, transparent 6px 12px);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:20px}
+    h1{margin:0;font-size:26px;letter-spacing:0.6px}
+    p.lead{margin:6px 0 0;color:#bfb6ae}
+    main{display:grid;grid-template-columns:1fr 360px;gap:24px;padding:0 28px 28px}
+    .prologue{padding:24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:10px;min-height:300px}
+    .prologue h2{color:#fff;margin-top:0}
+    .actions{display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(255,255,255,0.01));align-items:stretch}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#7b2a1f);color:white}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .meta{font-size:13px;color:#a99f96}
+    .footer{padding:16px 28px;border-top:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;color:#9f978f}
+    /* ember particle layer */
+    canvas#embers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+    /* cinematic overlay */
+    .cinematic{position:absolute;inset:0;background:linear-gradient(180deg, rgba(4,4,4,0.25), rgba(0,0,0,0.6));display:flex;align-items:center;justify-content:center;padding:40px}
+    .modal{background:rgba(2,2,2,0.85);padding:24px;border-radius:12px;max-width:880px}
+    .modal h3{margin:0 0 8px}
+    .small{font-size:13px;color:#b6ada4}
+    @media (max-width:820px){main{grid-template-columns:1fr;}
+      .actions{order:2}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="application" aria-label="Asche meines Dorfes - Startseite">
+      <canvas id="embers" aria-hidden="true"></canvas>
+
+      <header>
+        <div class="logo">Asche</div>
+        <div>
+          <h1>Asche meines Dorfes</h1>
+          <p class="lead">Ein dunkles Rache-Epos — vom Bauernjungen zum Krieger.</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="prologue" id="prologue">
+          <h2>Prolog</h2>
+          <p>Die Nacht, in der dein Dorf in Flammen aufging, brannte sich in dein Gedächtnis wie ein unauslöschliches Brandmal. Du wurdest gefunden — bewusstlos, verwundet — von einem Fremden, der dich in seinem Dorf gesund pflegte. Nun bist du wieder auf den Beinen. Die Asche deines Zuhauses liegt hinter dir. Vor dir nur noch ein Weg: Rache.</p>
+
+          <h3>Was dich erwartet</h3>
+          <ul>
+            <li>Intensive, erzählerische Quests — von persönlichen Prüfungen bis zum Sturm auf die Festung.</li>
+            <li>Eine Rüstungs- und Beute-Mechanik: erkämpfe dir Stück für Stück bessere Ausrüstung.</li>
+            <li>Schwere Bosskämpfe, Arenenturniere und emotionale Wendungen.</li>
+          </ul>
+
+          <div style="margin-top:18px">
+            <button class="btn primary" id="startBtn">Spiel starten</button>
+            <button class="btn ghost" id="proseBtn">Lese gesamten Prolog</button>
+          </div>
+        </section>
+
+        <aside class="actions">
+          <div>
+            <div class="meta">Schwierigkeitsgrad</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn ghost" data-diff="easy">Einfach</button>
+              <button class="btn ghost" data-diff="normal">Normal</button>
+              <button class="btn ghost" data-diff="hard">Härter</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="meta">Optionen</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+              <button class="btn ghost" id="settingsBtn">Steuerung & Einstellungen</button>
+              <button class="btn ghost" id="creditsBtn">Credits</button>
+            </div>
+          </div>
+
+          <div style="margin-top:6px;color:#b9b0a6;font-size:13px">Tippe / klicke <kbd>Enter</kbd> um das Spiel schnell zu starten.</div>
+        </aside>
+      </main>
+
+      <div class="footer">
+        <div>© Spiel-Prototype — Asche meines Dorfes</div>
+        <div class="meta">Build: Prototype · Demo</div>
+      </div>
+
+      <!-- cinematic modal (hidden by default) -->
+      <div id="cinematic" class="cinematic" style="display:none">
+        <div class="modal" role="dialog" aria-modal="true">
+          <h3>Prolog — Volle Fassung</h3>
+          <p class="small">Die Flammen fraßen das Holz, Schreie rollten durch die Straßen. Du kämpftest, fielst — und dachtest, es sei vorbei. Doch dann ein Fremder, die warme Hand eines Unbekannten. Er brachte dich in sein Dorf und pflegte deine Wunden. Dein Herz aber blieb kalt und gelobt Rache.</p>
+          <p style="margin-top:12px"><button class="btn primary" id="cinClose">Weiter</button></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Simple ember particle effect on a canvas
+    const canvas = document.getElementById('embers');
+    const ctx = canvas.getContext('2d');
+    function resize(){canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio)}
+    window.addEventListener('resize', ()=>{resize();}); resize();
+
+    const particles = [];
+    function rand(min,max){return Math.random()*(max-min)+min}
+    for(let i=0;i<80;i++){
+      particles.push({x:rand(0,canvas.clientWidth),y:rand(0,canvas.clientHeight),vx:rand(-0.1,0.1),vy:rand(-0.2,-0.6),r:rand(0.6,2.6),alpha:rand(0.02,0.18)})
+    }
+    function loop(){
+      ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        p.alpha -= 0.0006; if(p.alpha<=0){p.x=rand(0,canvas.clientWidth);p.y=canvas.clientHeight+20;p.alpha=rand(0.06,0.2);p.vx=rand(-0.2,0.2);p.vy=rand(-0.2,-0.6)}
+        const g = ctx.createRadialGradient(p.x,p.y,p.r*0.1,p.x,p.y,p.r*10);
+        g.addColorStop(0, 'rgba(200,75,49,'+ (p.alpha*1.2) +')');
+        g.addColorStop(1, 'rgba(120,40,20,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    // UI
+    const cinematic = document.getElementById('cinematic');
+    document.getElementById('proseBtn').addEventListener('click', ()=>{cinematic.style.display='flex'});
+    document.getElementById('cinClose').addEventListener('click', ()=>{cinematic.style.display='none'});
+    document.getElementById('startBtn').addEventListener('click', ()=>{startGame()});
+    document.addEventListener('keydown', e=>{ if(e.key === 'Enter') startGame(); });
+
+    function startGame(){
+      // demo: show a sequence then redirect (placeholder)
+      document.querySelector('.card').classList.add('starting');
+      document.getElementById('prologue').innerHTML = '<h2>Der Weg beginnt</h2><p>Dein Weg zur Rache beginnt jetzt. (Demo: Hier würde das Spiel-Loading starten.)</p>'
+    }
+
+    // simple controls for difficulty selection
+    document.querySelectorAll('[data-diff]').forEach(b=>b.addEventListener('click', e=>{
+      document.querySelectorAll('[data-diff]').forEach(x=>x.classList.remove('selected'));
+      e.currentTarget.classList.add('selected');
+    }));
+  </script>
+</body>
+</html>
